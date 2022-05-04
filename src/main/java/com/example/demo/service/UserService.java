@@ -24,6 +24,15 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerNewUser(User user){
+
+        Role role = roleDao.findById("Contractor").get();
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+
+        user.setUserPassword(getEncodePassword(user.getUserPassword()));
+
        return userDao.save(user);
     }
 
@@ -33,10 +42,15 @@ public class UserService {
         adminRole.setRoleDescription("Admin role");
         roleDao.save(adminRole);
 
-        Role userRole = new Role();
-        userRole.setRoleName("Contractor");
-        userRole.setRoleDescription("contractor");
-        roleDao.save(userRole);
+        Role contractorRole = new Role();
+        contractorRole.setRoleName("Contractor");
+        contractorRole.setRoleDescription("contractor");
+        roleDao.save(contractorRole);
+
+        Role employeeRole = new Role();
+        employeeRole.setRoleName("Employee");
+        employeeRole.setRoleDescription("employee");
+        roleDao.save(employeeRole);
 
         User adminUser = new User();
         adminUser.setFirstname("David");
@@ -49,16 +63,27 @@ public class UserService {
         adminUser.setRoles(adminRoles);
         userDao.save(adminUser);
 
-        User user = new User();
-        user.setFirstname("Kevin");
-        user.setLastname("Smith");
-        user.setEmail("ksmith32@gmal.com");
-        user.setUserName("ksmith69");
-        user.setUserPassword(getEncodePassword("password"));
-        Set<Role> userRoles = new HashSet<>();
-        userRoles.add(userRole);
-        user.setRoles(userRoles);
-        userDao.save(user);
+//        User contractor = new User();
+//        contractor.setFirstname("Kevin");
+//        contractor.setLastname("Smith");
+//        contractor.setEmail("ksmith32@gmal.com");
+//        contractor.setUserName("ksmith69");
+//        contractor.setUserPassword(getEncodePassword("password"));
+//        Set<Role> contractorRoles = new HashSet<>();
+//        contractorRoles.add(contractorRole);
+//        contractor.setRoles(contractorRoles);
+//        userDao.save(contractor);
+//
+//        User employee = new User();
+//        employee.setFirstname("James");
+//        employee.setLastname("Smith");
+//        employee.setEmail("ksmith32@gmal.com");
+//        employee.setUserName("jsmith69");
+//        employee.setUserPassword(getEncodePassword("password"));
+//        Set<Role> employeeRoles = new HashSet<>();
+//        employeeRoles.add(employeeRole);
+//        employee.setRoles(employeeRoles);
+//        userDao.save(employee);
 
     }
 
