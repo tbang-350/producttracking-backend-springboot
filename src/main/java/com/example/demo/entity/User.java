@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "user_table")
 public class User {
 
 //    @Id
@@ -25,7 +25,7 @@ public class User {
     private String userPassword;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE",
+    @JoinTable(name = "user_role_table",
             joinColumns =
                     @JoinColumn(name = "userid")
             ,

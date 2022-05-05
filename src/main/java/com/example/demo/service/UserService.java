@@ -63,27 +63,27 @@ public class UserService {
         adminUser.setRoles(adminRoles);
         userDao.save(adminUser);
 
-//        User contractor = new User();
-//        contractor.setFirstname("Kevin");
-//        contractor.setLastname("Smith");
-//        contractor.setEmail("ksmith32@gmal.com");
-//        contractor.setUserName("ksmith69");
-//        contractor.setUserPassword(getEncodePassword("password"));
-//        Set<Role> contractorRoles = new HashSet<>();
-//        contractorRoles.add(contractorRole);
-//        contractor.setRoles(contractorRoles);
-//        userDao.save(contractor);
-//
-//        User employee = new User();
-//        employee.setFirstname("James");
-//        employee.setLastname("Smith");
-//        employee.setEmail("ksmith32@gmal.com");
-//        employee.setUserName("jsmith69");
-//        employee.setUserPassword(getEncodePassword("password"));
-//        Set<Role> employeeRoles = new HashSet<>();
-//        employeeRoles.add(employeeRole);
-//        employee.setRoles(employeeRoles);
-//        userDao.save(employee);
+        User contractor = new User();
+        contractor.setFirstname("Kevin");
+        contractor.setLastname("Smith");
+        contractor.setEmail("ksmith32@gmal.com");
+        contractor.setUserName("ksmith69");
+        contractor.setUserPassword(getEncodePassword("password"));
+        Set<Role> contractorRoles = new HashSet<>();
+        contractorRoles.add(contractorRole);
+        contractor.setRoles(contractorRoles);
+        userDao.save(contractor);
+
+        User employee = new User();
+        employee.setFirstname("James");
+        employee.setLastname("Smith");
+        employee.setEmail("ksmith32@gmal.com");
+        employee.setUserName("jsmith69");
+        employee.setUserPassword(getEncodePassword("password"));
+        Set<Role> employeeRoles = new HashSet<>();
+        employeeRoles.add(employeeRole);
+        employee.setRoles(employeeRoles);
+        userDao.save(employee);
 
     }
 
