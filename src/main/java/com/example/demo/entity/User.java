@@ -11,36 +11,35 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_table")
+@Table(name = "users")
 public class User {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long userid;
-    private String firstname;
-    private String lastname;
-    private String email;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long user_id;
     private String userName;
     private String userPassword;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role_table",
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
             joinColumns =
-                    @JoinColumn(name = "userid")
+            @JoinColumn(name = "user_id")
             ,
             inverseJoinColumns =
-                    @JoinColumn(name = "role_id")
+            @JoinColumn(name = "role_id")
 
     )
     private Set<Role> roles;
 
-//    public User(String firstname, String lastname, String email, String username, String password, Set<Role> roles) {
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.email = email;
-//        this.username = username;
-//        this.password = password;
-//        this.roles = roles;
-//    }
+    public User(String userName, String userPassword, String firstName, String lastName, String email, Set<Role> roles) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.roles = roles;
+    }
 }

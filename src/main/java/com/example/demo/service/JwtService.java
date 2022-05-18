@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.UserDao;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.entity.JwtRequest;
 import com.example.demo.entity.JwtResponse;
 import com.example.demo.entity.User;
@@ -26,7 +26,7 @@ public class JwtService implements UserDetailsService {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
 
     @Autowired
@@ -40,13 +40,13 @@ public class JwtService implements UserDetailsService {
        final UserDetails userDetails = loadUserByUsername(userName);
        String newGeneratedToken = jwtUtil.generateToken(userDetails);
 
-       User user = userDao.findById(userName).get();
+       User user = userRepository.findUserByUsername(userName).get();
        return new JwtResponse(user, newGeneratedToken);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findById(username).get();
+        User user = userRepository.findUserByUsername(username).get();
 
         if (user != null){
             return new org.springframework.security.core.userdetails.User(

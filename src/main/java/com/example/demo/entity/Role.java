@@ -11,18 +11,16 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "roles_table")
+@Table(name = "roles")
 public class Role {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long role_id;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long role_id;
     private String roleName;
     private String roleDescription;
 
-//    public Role(String roleName, String roleDescription) {
-//        this.roleName = roleName;
-//        this.roleDescription = roleDescription;
-//    }
+    public Role(String roleName, String roleDescription) {
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
+    }
 }
