@@ -16,7 +16,7 @@ public class JwtUtil {
 
     private static final String SECRET_KEY = "fuck_you_hacker";
 
-    private static final int TOKEN_VALIDITY = 3600 * 5;
+    private static final long TOKEN_VALIDITY = 3600 * 500;
 
     public String getUsernameFromToken(String token){
         return getClaimFromToken(token, Claims::getSubject);

@@ -16,9 +16,9 @@ public class PruducttrackingBackendApplication {
 		SpringApplication.run(PruducttrackingBackendApplication.class, args);
 	}
 
-//	@Bean
-//	public ModelMapper modelMapper(){
-//		return new ModelMapper();
-//	}
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 
 }

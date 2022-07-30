@@ -1,8 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.Dto.UserDto;
+import com.example.demo.Dto.UserUpdateDto;
+import com.example.demo.entity.ContractorChartdata;
+import com.example.demo.entity.EmployeeChartdata;
 import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,24 +16,30 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostConstruct
-    public void initRolesAndUsers(){
-        userService.initRolesAndUser();
-    }
+    @Autowired
+    private UserRepository userRepository;
+
 
     @PostMapping("/registerContractor")
-    public User registerContractor(User user){
-        return userService.registerContractor(user);
+    public User registerContractor(@RequestBody UserDto userDto){
+        return userService.registerContractor(userDto);
     }
 
     @PostMapping("/registerEmployee")
-    public User registerEmployee(User user){
-        return userService.registerEmployee(user);
+    public User registerEmployee(@RequestBody UserDto userDto){
+        return userService.registerEmployee(userDto);
+    }
+
+    @PostMapping("/registerAdmin")
+    public User registerAdmin(@RequestBody UserDto userDto){
+        return userService.registerAdmin(userDto);
     }
 
     @GetMapping("/getAllUsers")
@@ -35,37 +47,53 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/getContractors")
+    public List<User> getContractors(){
+        return userRepository.findAllContractors();
+    }
+
+    @GetMapping("/getEmployees")
+    public List<User> getEmployee(){
+        return userRepository.findAllEmployees();
+    }
+
     @DeleteMapping("/deleteUser/{user_id}")
     public void deleteUser(@PathVariable("user_id") Long user_id){
         userService.deleteUser(user_id);
     }
 
-    @PutMapping("/updateUser/{user_id}")
-    public void updateUser(
-            @PathVariable("user_id") Long user_id,
-            @RequestParam(required = false) String userName,
-            @RequestParam(required = false) String userPassword,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName
-    ){
-        userService.updateUser(user_id,userName,userPassword,firstName,lastName);
-    }
-    @GetMapping("/forAdmin")
-    @PreAuthorize("hasRole('Admin')")
-    public String forAdmin(){
-        return "For Admin only";
+    @PutMapping("/updateContractor")
+    public ResponseEntity<User> updateContractor(@RequestBody UserUpdateDto userUpdateDto){
+        return userService.updateContractor(userUpdateDto);
     }
 
-    @GetMapping("/forContractor")
-    @PreAuthorize("hasRole('Contractor')")
-    public String forContractor(){
-        return "For Contractor  only";
+    @PutMapping("/updateEmployee")
+    public ResponseEntity<User> updateEmployee(@RequestBody UserUpdateDto userUpdateDto){
+        return userService.updateEmployee(userUpdateDto);
     }
 
-    @GetMapping("/forEmployee")
-    @PreAuthorize("hasRole('Employee')")
-    public String forEmployee(){
-        return "For Employee only";
+    @GetMapping("/countContractors")
+    public int countContractors(){
+        return  userRepository.countAllContractors();
+    }
+
+    @GetMapping("/countEmployees")
+    public int countEmployees(){
+        return userRepository.countAllEmployees();
+    }
+    @GetMapping("/countAllUsers")
+    public int countAllUsers(){
+        return userRepository.countAllUsers();
+    }
+
+    @GetMapping("/getChartdata")
+    public EmployeeChartdata getChartdata(){
+        return userRepository.getChartdata();
+    }
+
+    @GetMapping("/getContractorChartdata")
+    public ContractorChartdata getContractorChartdata(){
+        return userRepository.getContractorChartdata();
     }
 
 
