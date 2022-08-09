@@ -19,17 +19,13 @@ public class Metadata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long metadata_id;
-    private String name;
     private Double latitude;
     private Double longitude;
-    private String description;
     private LocalDate registerDate;
 
-    public Metadata(String name, Double latitude, Double longitude, String description, LocalDate registerDate) {
-        this.name = name;
+    public Metadata( Double latitude, Double longitude, LocalDate registerDate) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.description = description;
         this.registerDate = registerDate;
     }
 }
